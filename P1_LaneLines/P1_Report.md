@@ -124,3 +124,11 @@ Another shortcoming could be for lines with yellow color, the detection works no
 A possible improvement would be to use a buffer to store itthe last slope values for left and right lane lines. And then use the weighted combination of the previous and current value to calcualte the final slope values for lane lines. This approach can avoid rapid changes of the slope and make the detection results more stable. 
 
 Another potential improvement could be to to apply the HSV (hue, saturation, value) colorspace to boost the yellow areas of the image. This method can help us to distinguish the yellow line from the road surface better and reduce the noise in the video, thus improving the second shortcoming.
+
+$$
+P_{r-j}=
+ \begin{cases}
+   0 &\mbox{if $r-j$ is odd}\\
+   r!\,(-1)^{(r-j)/2} &\mbox{if $r-j$ is even}
+   \end{cases}
+$$
