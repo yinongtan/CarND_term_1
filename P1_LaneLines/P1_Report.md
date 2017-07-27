@@ -76,7 +76,7 @@ For step 2, I defined low threshold and high threshold for Canny edge detection 
 ![alt text][step2_solidYellowLeft]
 ![alt text][step2_whiteCarLaneSwitch]
 
-For step 3, I used a four sided polygon to define the region of interest of each image. The vertice are: (0.05 * width, height), (0.45 * width, 0.6 * height), (0.55 * width, 0.6 * height), (0.95 * width, height). The results after applying step 3 are shown as follows:
+For step 3, I used a four sided polygon to define the region of interest of each image. The four vertice are: (0.05 * width, height); (0.45 * width, 0.6 * height); (0.55 * width, 0.6 * height); (0.95 * width, height). The results after applying step 3 are shown as follows:
 
 ![alt text][step3_solidWhiteCurve]
 ![alt text][step3_solidWhiteRight]
