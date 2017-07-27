@@ -76,7 +76,7 @@ For step 2, I defined low threshold and high threshold for Canny edge detection 
 ![alt text][step2_solidYellowLeft]
 ![alt text][step2_whiteCarLaneSwitch]
 
-For step 3, I used a four sided polygon to define the region of interest of each image. The vertice are: (0.05 width, 1), (0.45, 0.6), (0.55, 0.6), (0.95, 1). The results after applying step 3 are shown as follows:
+For step 3, I used a four sided polygon to define the region of interest of each image. The vertice are: (0.05 * width, height), (0.45 * width, 0.6 * height), (0.55 * width, 0.6 * height), (0.95 * width, height). The results after applying step 3 are shown as follows:
 
 ![alt text][step3_solidWhiteCurve]
 ![alt text][step3_solidWhiteRight]
@@ -85,7 +85,7 @@ For step 3, I used a four sided polygon to define the region of interest of each
 ![alt text][step3_solidYellowLeft]
 ![alt text][step3_whiteCarLaneSwitch]
 
-For step 4, I defined the Hough transform parameters ($\rho$ = 2, $\theta$ = 1 deg, threshold = 50, min line length = 25, max line gap = 25), then I applied Hough transform on edge detected images. The results after applying step 4 are shown as follows:
+For step 4, I defined the Hough transform parameters (rho = 2, theta = 1 deg, threshold = 50, min line length = 25, max line gap = 25), then I applied Hough transform on edge detected images. The results after applying step 4 are shown as follows:
 
 ![alt text][step4_solidWhiteCurve]
 ![alt text][step4_solidWhiteRight]
@@ -121,14 +121,7 @@ Another shortcoming could be for lines with yellow color, the detection works no
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to use a buffer to store itthe last slope values for left and right lane lines. And then use the weighted combination of the previous and current value to calcualte the final slope values for lane lines. This approach can avoid rapid changes of the slope and make the detection results more stable. 
+A possible improvement would be to use a buffer to store the last slope values for left and right lane lines. Then, use the weighted combination of the previous and current value to determine the final values for lane line slopes. This approach can avoid rapid changes of the slope and make the detection results more stable. 
 
 Another potential improvement could be to to apply the HSV (hue, saturation, value) colorspace to boost the yellow areas of the image. This method can help us to distinguish the yellow line from the road surface better and reduce the noise in the video, thus improving the second shortcoming.
 
-$$
-P_{r-j}=
- \begin{cases}
-   0 &\mbox{if $r-j$ is odd}\\
-   r!\,(-1)^{(r-j)/2} &\mbox{if $r-j$ is even}
-   \end{cases}
-$$
