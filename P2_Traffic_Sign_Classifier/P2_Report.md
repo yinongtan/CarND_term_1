@@ -133,8 +133,8 @@ To train the model, I used an Adam optimizer with a batch size of 100 and a epoc
 
 My final model results were:
 * training set accuracy of 99.0%
-* validation set accuracy of 95.0%
-* test set accuracy of 93.8%
+* validation set accuracy of 95.1%
+* test set accuracy of 93.2%
 
 If an iterative approach was chosen:
 * What was the first architecture that was tried and why was it chosen?
@@ -172,7 +172,7 @@ Because both the traffic sign classifier and LeNet focus on classifying images i
 
 * How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 
-The final model provides a training set accuracy of 99.0%, a validation set accuracy of 95.0%, a test set accuracy of 93.8%. Since it is not possible to totally eliminate the influence of overfitting, it is acceptable that we have managed to increase the accuracy of validation set to 95%. Even the test dataset has a accuracy greater than the threshold (93%). In conclusion, the model is working well to classify the German traffic signs.
+The final model provides a training set accuracy of 99.0%, a validation set accuracy of 95.1%, a test set accuracy of 93.8%. Since it is not possible to totally eliminate the influence of overfitting, it is acceptable that we have managed to increase the accuracy of validation set to 95.1%. Even the test dataset has a accuracy greater than the threshold (93%). In conclusion, the model is working well to classify the German traffic signs.
  
 
 ###Test a Model on New Images
@@ -211,7 +211,7 @@ The model was able to correctly guess 10 of the 10 traffic signs, which gives an
 
 The code for making predictions on my final model is located in the 10th cell of the Ipython notebook.
 
-For the first image, the model is relatively sure that this is a Vehicle over 3.5 metric tons prohibited sign (probability of 0.21), and the image does contain a Vehicle over 3.5 metric tons prohibited sign. The top five soft max probabilities were
+For the first image, the model is relatively sure that this is a Vehicle over 3.5 metric tons prohibited sign (probability of 1), and the image does contain a Vehicle over 3.5 metric tons prohibited sign. The top five soft max probabilities were
 
 ![alt text][image8] 
 <!-- | Probability         	|     Prediction	        					| 
@@ -222,39 +222,39 @@ For the first image, the model is relatively sure that this is a Vehicle over 3.
 | .04	      			| Bumpy Road					 				|
 | .01				    | Slippery Road      							| -->
 
-For the second image, the model is relatively sure that this is a Speed limit (30km/h) sign (probability of 0.21), and the image does contain a Speed limit (30km/h) sign. The top five soft max probabilities were
+For the second image, the model is relatively sure that this is a Speed limit (30km/h) sign (probability of 1), and the image does contain a Speed limit (30km/h) sign. The top five soft max probabilities were
 
 ![alt text][image9]
 
-For the third image, the model is relatively sure that this is a Keep right sign (probability of 0.35), and the image does contain a Keep right sign. The top five soft max probabilities were
+For the third image, the model is relatively sure that this is a Keep right sign (probability of 1), and the image does contain a Keep right sign. The top five soft max probabilities were
 
 ![alt text][image10]
 
-For the fourth image, the model is relatively sure that this is a Turn right ahead sign (probability of 0.19), and the image does contain a Turn right ahead sign. The top five soft max probabilities were
+For the fourth image, the model is relatively sure that this is a Turn right ahead sign (probability of 1), and the image does contain a Turn right ahead sign. The top five soft max probabilities were
 
 ![alt text][image11]
 
-For the fifth image, the model is relatively sure that this is a Right-of-way at the next intersection sign (probability of 0.13), and the image does contain a Right-of-way at the next intersection sign. The top five soft max probabilities were
+For the fifth image, the model is relatively sure that this is a Right-of-way at the next intersection sign (probability of 1), and the image does contain a Right-of-way at the next intersection sign. The top five soft max probabilities were
 
 ![alt text][image12]
 
-For the sixth image, the model is relatively sure that this is a Keep right sign (probability of 0.31), and the image does contain a Keep right sign. The top five soft max probabilities were
+For the sixth image, the model is relatively sure that this is a Keep right sign (probability of 1), and the image does contain a Keep right sign. The top five soft max probabilities were
 
 ![alt text][image13]
 
-For the seventh image, the model is relatively sure that this is a Generation caution sign (probability of 0.30), and the image does contain a Generation caution sign. The top five soft max probabilities were
+For the seventh image, the model is relatively sure that this is a Generation caution sign (probability of 1), and the image does contain a Generation caution sign. The top five soft max probabilities were
 
 ![alt text][image14]
 
-For the eighth image, the model is relatively sure that this is a Priority road sign (probability of 0.13), and the image does contain a Priority road sign. The top five soft max probabilities were
+For the eighth image, the model is relatively sure that this is a Priority road sign (probability of 1), and the image does contain a Priority road sign. The top five soft max probabilities were
 
 ![alt text][image15]
 
-For the ninth image, the model is relatively sure that this is a Road work sign (probability of 0.26), and the image does contain a Road work sign. The top five soft max probabilities were
+For the ninth image, the model is relatively sure that this is a Road work sign (probability of 1), and the image does contain a Road work sign. The top five soft max probabilities were
 
 ![alt text][image16]
 
-For the tenth image, the model is relatively sure that this is a Ahead only sign (probability of 0.23), and the image does contain a Ahead only sign. The top five soft max probabilities were
+For the tenth image, the model is relatively sure that this is a Ahead only sign (probability of 1), and the image does contain a Ahead only sign. The top five soft max probabilities were
 
 ![alt text][image17]
 
