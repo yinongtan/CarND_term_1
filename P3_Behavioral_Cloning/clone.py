@@ -1,0 +1,89 @@
+import os
+import csv
+
+samples = []
+with open('./data/driving_log.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for line in reader:
+        samples.append(line)
+
+del samples[0]
+
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+train_samples, validation_samples = train_test_split(samples, test_size=0.2)
+
+import cv2
+import numpy as np
+import sklearn
+
+def generator(samples, batch_size=32):
+    num_samples = len(samples)
+    while 1: # Loop forever so the generator never terminates
+        shuffle(samples)
+        for offset in range(0, num_samples, batch_size):
+            batch_samples = samples[offset:offset+batch_size]
+
+            images = []
+            angles = []
+            for batch_sample in batch_samples:
+                name = './data/IMG/'+batch_sample[0].split('/')[-1]
+                name_left = './data/IMG/'+batch_sample[1].split('/')[-1]
+                name_right = './data/IMG/'+batch_sample[2].split('/')[-1]
+                # read in images from center, left and right cameras
+                center_image = cv2.imread(name)
+                left_image = cv2.imread(name_left)
+                right_image = cv2.imread(name_right)
+
+                center_angle = float(batch_sample[3])
+                # create adjusted steering measurements for the side camera images
+                correction = 0.2 # this is a parameter to tune
+                left_angle = center_angle + correction
+                right_angle = center_angle - correction
+
+                # add images and angles to data set
+                images.extend([center_image, left_image, right_image])
+                angles.extend([center_angle, left_angle, right_angle])
+
+            augmented_images, augmented_measurements = [], []
+            for image, measurement in zip(images, angles):
+                augmented_images.append(image)
+                augmented_measurements.append(measurement)
+                augmented_images.append(cv2.flip(image, 1))
+                augmented_measurements.append(measurement * -1.0)
+
+            # trim image to only see section with road
+            X_train = np.array(augmented_images)
+            y_train = np.array(augmented_measurements)
+            yield shuffle(X_train, y_train)
+
+# compile and train the model using the generator function
+train_generator = generator(train_samples, batch_size=32)
+validation_generator = generator(validation_samples, batch_size=32)
+
+row, col, ch = 160, 320, 3  # Trimmed image format
+
+from keras.models import Sequential
+from keras.layers import Flatten, Dense, Lambda, Cropping2D
+from keras.layers.convolutional import Convolution2D
+from keras.layers.pooling import MaxPooling2D
+
+model = Sequential()
+# Preprocess incoming data, centered around zero with small standard deviation 
+model.add(Lambda(lambda x: (x/255.0) - 0.5), input_shape=(row, col, ch))
+model.add(Cropping2D(cropping=((50,20), (0,0))))
+model.add(Convolution2D(6,5,5, activation = "relu"))
+model.add(MaxPooling2D())
+model.add(Convolution2D(6,5,5, activation = "relu"))
+model.add(MaxPooling2D())
+model.add(Flatten())
+model.add(Dense(128))
+model.add(Dense(84))
+model.add(Dense(1))
+
+model.compile(loss='mse', optimizer='adam')
+model.fit_generator(train_generator, samples_per_epoch= \
+            len(6 * train_samples), validation_data=validation_generator, \
+            nb_val_samples=len(6 * validation_samples), nb_epoch=3)
+
+model.save('model.h5')
