@@ -37,7 +37,7 @@ def generator(samples, batch_size=32):
 
                 center_angle = float(batch_sample[3])
                 # create adjusted steering measurements for the side camera images
-                correction = 0.2 # this is a parameter to tune
+                correction = 0.5 # this is a parameter to tune
                 left_angle = center_angle + correction
                 right_angle = center_angle - correction
 
@@ -70,15 +70,16 @@ from keras.layers.pooling import MaxPooling2D
 
 model = Sequential()
 # Preprocess incoming data, centered around zero with small standard deviation 
-model.add(Lambda(lambda x: (x/255.0) - 0.5), input_shape=(row, col, ch))
-model.add(Cropping2D(cropping=((50,20), (0,0))))
-model.add(Convolution2D(6,5,5, activation = "relu"))
-model.add(MaxPooling2D())
-model.add(Convolution2D(6,5,5, activation = "relu"))
-model.add(MaxPooling2D())
+model.add(Lambda(lambda x: (x/255.0) - 0.5, input_shape=(row, col, ch)))
+model.add(Cropping2D(cropping=((70,25), (0,0))))
+model.add(Convolution2D(24,5,5,subsample=(2,2), activation = "relu"))
+model.add(Convolution2D(36,5,5,subsample=(2,2), activation = "relu"))
+model.add(Convolution2D(48,5,5,subsample=(2,2), activation = "relu"))
+model.add(Convolution2D(64,3,3, activation = "relu"))
+model.add(Convolution2D(64,3,3, activation = "relu"))
 model.add(Flatten())
-model.add(Dense(128))
-model.add(Dense(84))
+model.add(Dense(100))
+model.add(Dense(50))
 model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
