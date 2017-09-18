@@ -58,8 +58,8 @@ def generator(samples, batch_size=32):
             yield shuffle(X_train, y_train)
 
 # compile and train the model using the generator function
-train_generator = generator(train_samples, batch_size=32)
-validation_generator = generator(validation_samples, batch_size=32)
+train_generator = generator(train_samples, batch_size=16)
+validation_generator = generator(validation_samples, batch_size=16)
 
 row, col, ch = 160, 320, 3  # Trimmed image format
 
@@ -91,7 +91,7 @@ import matplotlib.pyplot as plt
 model.compile(loss='mse', optimizer='adam')
 history_object = model.fit_generator(train_generator, samples_per_epoch= \
             len(6 * train_samples), validation_data=validation_generator, \
-            nb_val_samples=len(6 * validation_samples), nb_epoch=1, verbose=1)
+            nb_val_samples=len(6 * validation_samples), nb_epoch=6, verbose=1)
 
 model.save('model.h5')
 
