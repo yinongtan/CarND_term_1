@@ -82,7 +82,7 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture was to start with a well known architecture used by NVIDIA to address the similar problem. Then adjust the architecture to eliminate underfitting and reduce overfitting for our dataset. Finally test the model using track 1 in the simulator to validate the performance.
 
 My first step was to use a convolution neural network model similar to the [NVIDIA architecture](https://arxiv.org/pdf/1604.07316v1.pdf). I thought this model might be appropriate because this is the CNN acchitecture that used by NVIDIA to generate steering from the video images of a single center camera, which is very similiar to the project requirements.
 
@@ -154,11 +154,11 @@ In addition, I also o feed the left and right camera images to your model as if 
 
 This way, I can teach the model how to steer if the car drifts off to the left or the right. After multiple experiments, the optimal correction value was found to be around 0.65.
 
-After the collection process, I had 48216 number of data points. I then preprocessed this data by normalizing the images using a Keras lambda layer and cropping the top 70 and bottom 25 rows to focus on the most useful information of the images.
+After the collection process, I had 48216 number of data points. I then preprocessed this data by normalizing the images using a Keras lambda layer and cropping the top 70 and bottom 25 rows of pixels to focus on the most useful information of the images.
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 6 as evidenced by the figure show below:
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 6 as evidenced by the figure shown below:
 
 ![alt text][image11]
 
